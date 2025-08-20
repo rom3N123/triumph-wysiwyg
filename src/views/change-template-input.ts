@@ -27,10 +27,6 @@ export class ChangeTemplateInput extends HTMLElement {
     return $selectedTemplateName.getState();
   }
 
-  private get selectedTemplateId() {
-    return $selectedTemplateId.getState();
-  }
-
   private observeStore() {
     $selectedTemplateName.subscribe(() => {
       this.rerender();
@@ -43,9 +39,11 @@ export class ChangeTemplateInput extends HTMLElement {
 
   // @ts-ignore
   private onChange({ currentTarget: { value } }: Event) {
-    if (this.selectedTemplateId) {
+    const selectedTemplateId = $selectedTemplateId.getState();
+
+    if (selectedTemplateId) {
       updateTemplateLabelById({
-        id: this.selectedTemplateId,
+        id: selectedTemplateId,
         label: value,
       });
     }
@@ -59,8 +57,13 @@ export class ChangeTemplateInput extends HTMLElement {
 
   private rerender() {
     if (this.ref) {
-      this.ref.setAttribute("value", this.selectedTemplateName);
-      this.ref.setAttribute("disabled", `${Boolean(this.selectedTemplateId)}`);
+      this.ref.value = this.selectedTemplateName;
+
+      const isActive = Boolean($selectedTemplateId.getState());
+
+      isActive
+        ? this.ref.removeAttribute("disabled")
+        : this.ref.setAttribute("disabled", "true");
     }
   }
 
