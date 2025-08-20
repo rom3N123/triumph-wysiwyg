@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script defer type="module" src="/src/main.ts"></script>
   <title>Vite + TS</title>
 </head>
 
@@ -24,11 +25,13 @@
 
         <div class="flex flex-col p-3">
           <div class="flex flex-col gap-1">
-            <ul class="p-3 border rounded bg-black/80">
+            <ul id="list" class="p-3 border rounded bg-black/80">
               <li>template 1</li>
               <li>template 2</li>
               <li>template 3</li>
             </ul>
+
+            <templates-list></templates-list>
 
             <div class="flex justify-end items-center gap-2">
               <button class="cursor-pointer border rounded size-8 flex items-center justify-center bg-red-500">
@@ -43,13 +46,14 @@
 
         <div class="flex flex-col p-3 gap-1">
           <span class="font-bold">Edit template</span>
+          <input value="" />
 
-          <input class="outline-0 border rounded p-1" placeholder="Enter template name" />
+          <change-template-input></change-template-input>
+          <!-- <input class="outline-0 border rounded p-1" placeholder="Enter template name" /> -->
         </div>
       </div>
     </div>
   </main>
-  <script type="module" src="/src/main.ts"></script>
 </body>
 
 </html>
