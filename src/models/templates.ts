@@ -18,16 +18,16 @@ export const $selectedTemplateName = combine(
     templates.find(({ id }) => id === selectedTemplateId)?.label || "",
 );
 
-export const createTemplate = createEvent<Template["label"]>();
+export const createTemplate = createEvent();
 export const removeTemplateById = createEvent<Template["id"]>();
 export const selectTemplateById = createEvent<SelectedTemplateId>();
 export const updateTemplateLabelById =
   createEvent<UpdateTemplateLabelPayload>();
 
 $templates
-  .on(createTemplate, (templates, label) => [
+  .on(createTemplate, (templates) => [
     ...templates,
-    { id: Date.now(), label },
+    { id: Date.now(), label: "template" },
   ])
   .on(removeTemplateById, (templates, idToDelete) =>
     templates.filter(({ id }) => id !== idToDelete),

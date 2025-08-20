@@ -2,6 +2,7 @@ import { $templates } from "../models/templates";
 
 export class TemplatesList extends HTMLElement {
   private shadow: ShadowRoot;
+
   static componentName = "templates-list";
 
   constructor() {
@@ -16,7 +17,7 @@ export class TemplatesList extends HTMLElement {
     return $templates.getState();
   }
 
-  observeStore() {
+  private observeStore() {
     $templates.subscribe(() => {
       this.render();
     });
@@ -25,16 +26,18 @@ export class TemplatesList extends HTMLElement {
   getUi() {
     return `
       <ul class="p-3 border rounded bg-black/80">
-        ${this.templates.map(
-          ({ label }) => `
-            <li>${label}</li>
+        ${this.templates
+          .map(
+            ({ label, id }) => `
+            <li id="${id}">${label}</li>
           `,
-        )}
+          )
+          .join("")}
       </ul>
     `;
   }
 
-  render() {
+  private render() {
     this.shadow.innerHTML = this.getUi();
   }
 }

@@ -5,9 +5,10 @@ import {
 } from "../models/templates";
 
 export class ChangeTemplateInput extends HTMLElement {
-  private shadow: ShadowRoot;
   static componentName = "change-template-input";
-  private inputElementRef: HTMLInputElement | null = null;
+
+  private shadow: ShadowRoot;
+  private ref: HTMLInputElement | null = null;
 
   constructor() {
     super();
@@ -18,7 +19,7 @@ export class ChangeTemplateInput extends HTMLElement {
 
     this.observeStore();
 
-    this.createInputElementRef();
+    this.createRef();
     this.addOnChangeListener();
   }
 
@@ -36,8 +37,8 @@ export class ChangeTemplateInput extends HTMLElement {
     });
   }
 
-  private createInputElementRef() {
-    this.inputElementRef = this.shadow.querySelector("input");
+  private createRef() {
+    this.ref = this.shadow.querySelector("input");
   }
 
   // @ts-ignore
@@ -51,18 +52,15 @@ export class ChangeTemplateInput extends HTMLElement {
   }
 
   private addOnChangeListener() {
-    if (this.inputElementRef) {
-      this.inputElementRef.addEventListener("input", this.onChange);
+    if (this.ref) {
+      this.ref.addEventListener("input", this.onChange);
     }
   }
 
   private rerender() {
-    if (this.inputElementRef) {
-      this.inputElementRef.setAttribute("value", this.selectedTemplateName);
-      this.inputElementRef.setAttribute(
-        "disabled",
-        `${Boolean(this.selectedTemplateId)}`,
-      );
+    if (this.ref) {
+      this.ref.setAttribute("value", this.selectedTemplateName);
+      this.ref.setAttribute("disabled", `${Boolean(this.selectedTemplateId)}`);
     }
   }
 
@@ -75,7 +73,7 @@ export class ChangeTemplateInput extends HTMLElement {
     `;
   }
 
-  render() {
+  private render() {
     this.shadow.innerHTML = this.getUi();
   }
 }
