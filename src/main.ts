@@ -4,4 +4,5 @@ import "@tinymce/tinymce-webcomponent";
 import { setupEditor } from "./setupEditor";
 
 defineComponents();
+
 setupEditor();

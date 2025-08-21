@@ -8,6 +8,7 @@ import "tinymce/models/dom/model.min.js";
 import "tinymce/skins/ui/oxide/skin.js";
 import { SelectTemplatesInput } from "./views/select-templates-input";
 import { $templates } from "./models/templates";
+import { createWatch } from "effector";
 
 const updateAllSelects = (doc: Document) => {
   const allSelects = doc.querySelectorAll("select");
@@ -17,12 +18,15 @@ const updateAllSelects = (doc: Document) => {
   });
 };
 
-$templates.subscribe(() => {
-  const doc = tinymce.activeEditor?.getDoc();
+createWatch({
+  unit: $templates,
+  fn: () => {
+    const doc = tinymce.activeEditor?.getDoc();
 
-  if (doc) {
-    updateAllSelects(doc);
-  }
+    if (doc) {
+      updateAllSelects(doc);
+    }
+  },
 });
 
 tinymce.PluginManager.add("dropdown", (editor) => {

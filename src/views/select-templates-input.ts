@@ -1,4 +1,4 @@
-import type { Observer } from "effector";
+import { createWatch } from "effector";
 import {
   $templates,
   createTemplate,
@@ -32,40 +32,47 @@ export class SelectTemplatesInput extends HTMLElement {
     return $templates.getState();
   }
 
+  private rerenderOption({ id, label }: UpdateTemplateLabelPayload) {
+    if (this.ref) {
+      const optionToUpdate = this.ref.querySelector(`[data-id='${id}']`);
+
+      if (optionToUpdate) {
+        optionToUpdate.textContent = label;
+        optionToUpdate.setAttribute("value", label);
+      }
+    }
+  }
+
+  private addErrorLabelToTheOption(templateId: number) {
+    if (this.ref) {
+      const deletedOption = this.ref.querySelector(`[data-id='${templateId}']`);
+
+      const selectedValue = this.ref.value;
+
+      const isDeletedWasActive =
+        selectedValue === deletedOption?.getAttribute("value");
+
+      if (isDeletedWasActive) {
+        deletedOption.textContent = "ERROR";
+        deletedOption.setAttribute("value", "ERROR");
+      }
+    }
+  }
+
   private observeStore() {
-    createTemplate.subscribe(() => {
-      this.rerender();
+    createWatch({
+      unit: createTemplate,
+      fn: () => this.rerender(),
     });
 
-    updateTemplateLabelById.subscribe(
-      ({ id, label }: UpdateTemplateLabelPayload) => {
-        if (this.ref) {
-          const optionToUpdate = this.ref.querySelector(`[data-id='${id}']`);
+    createWatch({
+      unit: updateTemplateLabelById,
+      fn: (payload) => this.rerenderOption(payload),
+    });
 
-          if (optionToUpdate) {
-            optionToUpdate.textContent = label;
-            optionToUpdate.setAttribute("value", label);
-          }
-        }
-      },
-    );
-
-    removeTemplateById.subscribe((templateId) => {
-      if (this.ref) {
-        const deletedOption = this.ref.querySelector(
-          `[data-id='${templateId}']`,
-        );
-
-        const selectedValue = this.ref.value;
-
-        const isDeletedWasActive =
-          selectedValue === deletedOption?.getAttribute("value");
-
-        if (isDeletedWasActive) {
-          deletedOption.textContent = "ERROR";
-          deletedOption.setAttribute("value", "ERROR");
-        }
-      }
+    createWatch({
+      unit: removeTemplateById,
+      fn: (templateId) => this.addErrorLabelToTheOption(templateId),
     });
   }
 
@@ -88,7 +95,6 @@ export class SelectTemplatesInput extends HTMLElement {
   getUi() {
     return `
       <select>
-        ${this.renderOptions}
       </select>
     `;
   }

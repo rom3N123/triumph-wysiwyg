@@ -1,3 +1,4 @@
+import { createWatch } from "effector";
 import {
   updateTemplateLabelById,
   $selectedTemplateId,
@@ -28,8 +29,9 @@ export class ChangeTemplateInput extends HTMLElement {
   }
 
   private observeStore() {
-    $selectedTemplateName.subscribe(() => {
-      this.rerender();
+    createWatch({
+      unit: $selectedTemplateName,
+      fn: () => this.rerender(),
     });
   }
 
