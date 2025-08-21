@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/triumph-wysiwyg/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + TS</title>
+  <script type="module" crossorigin src="/triumph-wysiwyg/assets/index-zAas_frQ.js"></script>
+  <link rel="stylesheet" crossorigin href="/triumph-wysiwyg/assets/index-Bym3UhDi.css">
+</head>
+
+<body>
+  <main class="w-screen h-screen">
+    <div class="container rounded flex items-start mx-auto">
+      <div class="w-1/2">
+        <div>
+          <textarea id="editor"></textarea>
+        </div>
+      </div>
+
+      <div class="w-1/2 flex flex-col gap-1">
+        <header class="h-14 flex items-center">
+          <h3 class="p-3 font-bold">Templates</h3>
+        </header>
+
+        <div class="flex flex-col p-3">
+          <div class="flex flex-col gap-1">
+            <div class="flex justify-end items-center gap-2">
+              <create-template-button></create-template-button>
+              <remove-template-button></remove-template-button>
+            </div>
+
+            <templates-list></templates-list>
+          </div>
+        </div>
+
+        <div class="flex flex-col p-3 gap-1">
+          <span class="font-bold">Edit template</span>
+
+          <change-template-input></change-template-input>
+
+          <span class="font-bold">Special component outside the editor</span>
+          <select-templates-input></select-templates-input>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
