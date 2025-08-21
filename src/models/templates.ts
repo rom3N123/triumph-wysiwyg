@@ -51,7 +51,8 @@ $templates
     return newTemplatesRef;
   });
 
-$selectedTemplateId.on(
-  selectTemplateById,
-  (_, selectedTemplateId) => selectedTemplateId,
-);
+$selectedTemplateId
+  .on(selectTemplateById, (_, selectedTemplateId) => selectedTemplateId)
+  .on(removeTemplateById, (selectedId, removedId) =>
+    selectedId === removedId ? null : selectedId,
+  );

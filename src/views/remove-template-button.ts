@@ -1,10 +1,10 @@
 import { $selectedTemplateId, removeTemplateById } from "../models/templates";
 
 export class RemoveTemplateButton extends HTMLElement {
+  static componentName = "remove-template-button";
+
   private shadow: ShadowRoot;
   private ref: HTMLButtonElement | null = null;
-
-  static componentName = "remove-template-button";
 
   constructor() {
     super();

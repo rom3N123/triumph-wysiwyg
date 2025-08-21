@@ -1,10 +1,10 @@
 import { createTemplate } from "../models/templates";
 
 export class CreateTemplateButton extends HTMLElement {
+  static componentName = "create-template-button";
+
   private shadow: ShadowRoot;
   private ref: HTMLButtonElement | null = null;
-
-  static componentName = "create-template-button";
 
   constructor() {
     super();

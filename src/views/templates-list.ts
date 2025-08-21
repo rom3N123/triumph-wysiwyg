@@ -6,9 +6,9 @@ import {
 } from "../models/templates";
 
 export class TemplatesList extends HTMLElement {
-  private shadow: ShadowRoot;
-
   static componentName = "templates-list";
+
+  private shadow: ShadowRoot;
 
   constructor() {
     super();

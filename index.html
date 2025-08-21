@@ -10,16 +10,16 @@
 </head>
 
 <body>
-  <main class="bg-black/30 w-screen h-screen">
-    <div class="container border rounded flex items-start mx-auto">
-      <header class="h-14 grow border-b p-3 flex items-center">
-        <button class="px-3 py-0.5 cursor-pointer border-solid border rounded">
-          Insert
-        </button>
-      </header>
+  <main class="w-screen h-screen">
+    <div class="container rounded flex items-start mx-auto">
+      <div class="w-1/2">
+        <div>
+          <textarea id="editor"></textarea>
+        </div>
+      </div>
 
-      <div class="grow flex flex-col border-l gap-1">
-        <header class="border-b h-14 flex items-center">
+      <div class="w-1/2 flex flex-col gap-1">
+        <header class="h-14 flex items-center">
           <h3 class="p-3 font-bold">Templates</h3>
         </header>
 
@@ -38,7 +38,6 @@
           <span class="font-bold">Edit template</span>
 
           <change-template-input></change-template-input>
-          <!-- <input class="outline-0 border rounded p-1" placeholder="Enter template name" /> -->
         </div>
       </div>
     </div>
